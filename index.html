@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Birthday Video Unlock</title>
+  <title>Birthday Unlock</title>
 
   <style>
     body {
@@ -14,7 +14,7 @@
     }
 
     h1 {
-      font-size: 40px;
+      font-size: 42px;
       letter-spacing: 2px;
     }
 
@@ -23,12 +23,12 @@
       font-size: 16px;
       border-radius: 10px;
       border: none;
-      width: 220px;
+      width: 240px;
       text-align: center;
     }
 
     button {
-      padding: 12px 20px;
+      padding: 12px 22px;
       margin-top: 15px;
       font-size: 16px;
       border-radius: 10px;
@@ -41,7 +41,12 @@
 
     button:hover {
       transform: scale(1.05);
-      background: #ffd700;
+    }
+
+    #loading {
+      margin-top: 20px;
+      display: none;
+      color: white;
     }
 
     #result {
@@ -75,6 +80,8 @@
 <br>
 <button onclick="showVideo()">Unlock Your Birthday Card</button>
 
+<div id="loading">🔍 Unlocking your video...</div>
+
 <div id="result">
   <h2 id="title"></h2>
   <a id="downloadBtn" download="birthday.mp4">⬇ Download Your Video</a>
@@ -93,25 +100,42 @@ const videos = {
 };
 
 function showVideo() {
-  const name = document.getElementById("name").value.trim();
+  const input = document.getElementById("name").value.trim();
 
-  if (!name) {
+  if (!input) {
     alert("Please enter your name");
     return;
   }
 
-  const videoLink = videos[name];
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("result").style.display = "none";
 
-  if (!videoLink) {
-    alert("No video found for this name 😢");
-    return;
-  }
+  setTimeout(() => {
 
-  document.getElementById("result").style.display = "block";
-  document.getElementById("title").innerText =
-    "🎉 Happy Birthday, " + name;
+    let foundName = null;
 
-  document.getElementById("downloadBtn").href = videoLink;
+    for (let key in videos) {
+      if (key.includes(input) || input.includes(key)) {
+        foundName = key;
+        break;
+      }
+    }
+
+    document.getElementById("loading").style.display = "none";
+
+    if (!foundName) {
+      alert("No video found 😢 Try full name!");
+      return;
+    }
+
+    document.getElementById("result").style.display = "block";
+    document.getElementById("title").innerText =
+      "🎉 Happy Birthday, " + foundName;
+
+    document.getElementById("downloadBtn").href = videos[foundName];
+
+  }, 800); // 模拟加载动画
+
 }
 
 </script>
