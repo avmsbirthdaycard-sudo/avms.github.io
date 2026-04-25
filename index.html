@@ -1,0 +1,41 @@
+<script>
+const videos = {
+  "黄星菀": "https://drive.google.com/uc?export=download&id=1kSWhSRp--cEENVpX_uwh4VFDn1JVYJdQ",
+  "蔡伊娴": "https://drive.google.com/uc?export=download&id=1YWbye4Ccuu-aXuzpFllhPzqnX85wxiui",
+  "纪金妗": "https://drive.google.com/uc?export=download&id=1gd4aEpAZapbjlDeQbSCEgf2SwLoDw0yt",
+  "林思如": "https://drive.google.com/uc?export=download&id=1UNmK_cBlsC2-eu-gbQD75OndjURZ7DJJ",
+  "吴静宇": "https://drive.google.com/uc?export=download&id=1a-Id4PR9nbVR4-zB04jGjXd4eYd5tW-S",
+  "刘紫善": "https://drive.google.com/uc?export=download&id=1SVVdWg7iphAwolebf93YjFdSRBwNxgw4",
+  "陈思璇": "https://drive.google.com/uc?export=download&id=1Sj0AgUhwPhcBU9yA8b68aSdl24Bq4eTj"
+};
+
+function showVideo() {
+  const input = document.getElementById("name").value.trim();
+
+  if (!input) {
+    alert("Please enter your name");
+    return;
+  }
+
+  let foundName = null;
+
+  // 🔍 模糊匹配（包含就算）
+  for (let key in videos) {
+    if (key.includes(input) || input.includes(key)) {
+      foundName = key;
+      break;
+    }
+  }
+
+  if (!foundName) {
+    alert("No video found for this name 😢");
+    return;
+  }
+
+  document.getElementById("result").style.display = "block";
+  document.getElementById("title").innerText =
+    "🎉 Happy Birthday, " + foundName;
+
+  document.getElementById("downloadBtn").href = videos[foundName];
+}
+</script>
