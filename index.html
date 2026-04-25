@@ -1,6 +1,144 @@
 <!DOCTYPE html>
 <html>
-<body style="background:black;color:white;text-align:center;padding-top:100px;">
-  <h1>It works 🎉</h1>
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Unlock</title>
+
+  <style>
+    body {
+      background: radial-gradient(circle at top, #111, #000);
+      color: gold;
+      text-align: center;
+      padding-top: 120px;
+      font-family: "Georgia", serif;
+    }
+
+    h1 {
+      font-size: 42px;
+      letter-spacing: 2px;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      width: 240px;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 22px;
+      margin-top: 15px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      background: gold;
+      color: black;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    #loading {
+      margin-top: 20px;
+      display: none;
+      color: white;
+    }
+
+    #result {
+      margin-top: 40px;
+      display: none;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 15px;
+      font-size: 18px;
+      color: white;
+      text-decoration: none;
+      border: 1px solid gold;
+      padding: 10px 15px;
+      border-radius: 10px;
+    }
+
+    a:hover {
+      background: gold;
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>🎂 Birthday Unlock</h1>
+
+<input id="name" placeholder="Enter your name">
+<br>
+<button onclick="showVideo()">Unlock Your Birthday Card</button>
+
+<div id="loading">🔍 Unlocking your video...</div>
+
+<div id="result">
+  <h2 id="title"></h2>
+  <a id="downloadBtn" download="birthday.mp4">⬇ Download Your Video</a>
+</div>
+
+<script>
+
+const videos = {
+  "黄星菀": "https://drive.google.com/uc?export=download&id=1kSWhSRp--cEENVpX_uwh4VFDn1JVYJdQ",
+  "蔡伊娴": "https://drive.google.com/uc?export=download&id=1YWbye4Ccuu-aXuzpFllhPzqnX85wxiui",
+  "纪金妗": "https://drive.google.com/uc?export=download&id=1gd4aEpAZapbjlDeQbSCEgf2SwLoDw0yt",
+  "林思如": "https://drive.google.com/uc?export=download&id=1UNmK_cBlsC2-eu-gbQD75OndjURZ7DJJ",
+  "吴静宇": "https://drive.google.com/uc?export=download&id=1a-Id4PR9nbVR4-zB04jGjXd4eYd5tW-S",
+  "刘紫善": "https://drive.google.com/uc?export=download&id=1SVVdWg7iphAwolebf93YjFdSRBwNxgw4",
+  "陈思璇": "https://drive.google.com/uc?export=download&id=1Sj0AgUhwPhcBU9yA8b68aSdl24Bq4eTj"
+};
+
+function showVideo() {
+  const input = document.getElementById("name").value.trim();
+
+  if (!input) {
+    alert("Please enter your name");
+    return;
+  }
+
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("result").style.display = "none";
+
+  setTimeout(() => {
+
+    let foundName = null;
+
+    for (let key in videos) {
+      if (key.includes(input) || input.includes(key)) {
+        foundName = key;
+        break;
+      }
+    }
+
+    document.getElementById("loading").style.display = "none";
+
+    if (!foundName) {
+      alert("No video found 😢 Try full name!");
+      return;
+    }
+
+    document.getElementById("result").style.display = "block";
+    document.getElementById("title").innerText =
+      "🎉 Happy Birthday, " + foundName;
+
+    document.getElementById("downloadBtn").href = videos[foundName];
+
+  }, 800); // 模拟加载动画
+
+}
+
+</script>
+
 </body>
 </html>
