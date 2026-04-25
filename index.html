@@ -1,4 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Unlock</title>
+
+  <style>
+    body {
+      background: radial-gradient(circle at top, #111, #000);
+      color: gold;
+      text-align: center;
+      padding-top: 120px;
+      font-family: "Georgia", serif;
+    }
+
+    h1 {
+      font-size: 42px;
+      letter-spacing: 2px;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      width: 240px;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 22px;
+      margin-top: 15px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      background: gold;
+      color: black;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    #loading {
+      margin-top: 20px;
+      display: none;
+      color: white;
+    }
+
+    #result {
+      margin-top: 40px;
+      display: none;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 15px;
+      font-size: 18px;
+      color: white;
+      text-decoration: none;
+      border: 1px solid gold;
+      padding: 10px 15px;
+      border-radius: 10px;
+    }
+
+    a:hover {
+      background: gold;
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>🎂 Birthday Unlock</h1>
+
+<input id="name" placeholder="Enter your name">
+<br>
+<button onclick="showVideo()">Unlock Your Birthday Card</button>
+
+<div id="loading">🔍 Unlocking your video...</div>
+
+<div id="result">
+  <h2 id="title"></h2>
+  <a id="downloadBtn" download="birthday.mp4">⬇ Download Your Video</a>
+</div>
+
 <script>
+
 const videos = {
   "黄星菀": "https://drive.google.com/uc?export=download&id=1kSWhSRp--cEENVpX_uwh4VFDn1JVYJdQ",
   "蔡伊娴": "https://drive.google.com/uc?export=download&id=1YWbye4Ccuu-aXuzpFllhPzqnX85wxiui",
@@ -17,25 +107,38 @@ function showVideo() {
     return;
   }
 
-  let foundName = null;
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("result").style.display = "none";
 
-  // 🔍 模糊匹配（包含就算）
-  for (let key in videos) {
-    if (key.includes(input) || input.includes(key)) {
-      foundName = key;
-      break;
+  setTimeout(() => {
+
+    let foundName = null;
+
+    for (let key in videos) {
+      if (key.includes(input) || input.includes(key)) {
+        foundName = key;
+        break;
+      }
     }
-  }
 
-  if (!foundName) {
-    alert("No video found for this name 😢");
-    return;
-  }
+    document.getElementById("loading").style.display = "none";
 
-  document.getElementById("result").style.display = "block";
-  document.getElementById("title").innerText =
-    "🎉 Happy Birthday, " + foundName;
+    if (!foundName) {
+      alert("No video found 😢 Try full name!");
+      return;
+    }
 
-  document.getElementById("downloadBtn").href = videos[foundName];
+    document.getElementById("result").style.display = "block";
+    document.getElementById("title").innerText =
+      "🎉 Happy Birthday, " + foundName;
+
+    document.getElementById("downloadBtn").href = videos[foundName];
+
+  }, 800); // 模拟加载动画
+
 }
+
 </script>
+
+</body>
+</html>
