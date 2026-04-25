@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Video Unlock</title>
+
+  <style>
+    body {
+      background: radial-gradient(circle at top, #111, #000);
+      color: gold;
+      text-align: center;
+      padding-top: 120px;
+      font-family: "Georgia", serif;
+    }
+
+    h1 {
+      font-size: 40px;
+      letter-spacing: 2px;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      width: 220px;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 20px;
+      margin-top: 15px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      background: gold;
+      color: black;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #ffd700;
+    }
+
+    #result {
+      margin-top: 40px;
+      display: none;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 15px;
+      font-size: 18px;
+      color: white;
+      text-decoration: none;
+      border: 1px solid gold;
+      padding: 10px 15px;
+      border-radius: 10px;
+    }
+
+    a:hover {
+      background: gold;
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>🎂 Birthday Unlock</h1>
+
+<input id="name" placeholder="Enter your name">
+<br>
+<button onclick="showVideo()">Unlock Your Birthday Card</button>
+
+<div id="result">
+  <h2 id="title"></h2>
+  <a id="downloadBtn" download="birthday.mp4">⬇ Download Your Video</a>
+</div>
+
+<script>
+
+// 👉 这里放“名字 → 视频”对应关系
+const videos = {
+  "黄星菀": "https://drive.google.com/uc?export=download&id=1LORW8IwfTK9-STOioRZIPo4zjxETVISm",
+  "Ben": "https://drive.google.com/uc?export=download&id=XXXXXXX",
+  "Chris": "https://drive.google.com/uc?export=download&id=XXXXXXX"
+};
+
+function showVideo() {
+  const name = document.getElementById("name").value.trim();
+
+  if (!name) {
+    alert("Please enter your name");
+    return;
+  }
+
+  const videoLink = videos[name];
+
+  if (!videoLink) {
+    alert("No video found for this name 😢");
+    return;
+  }
+
+  document.getElementById("result").style.display = "block";
+  document.getElementById("title").innerText =
+    "🎉 Happy Birthday, " + name;
+
+  document.getElementById("downloadBtn").href = videoLink;
+}
+
+</script>
+
+</body>
+</html>
